@@ -1,4 +1,4 @@
-package com.luistaborda.topi.topi.model.response;
+package com.luistaborda.topi.topi.model.vo;
 
 import com.luistaborda.topi.topi.model.entity.Meal;
 

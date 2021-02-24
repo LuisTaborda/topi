@@ -1,31 +1,29 @@
-package com.luistaborda.topi.topi.services;
+package com.luistaborda.topi.topi.api.service;
 
 import com.google.gson.Gson;
+import com.luistaborda.topi.topi.api.utils.Utils;
 import com.luistaborda.topi.topi.exception.MealException;
-import com.luistaborda.topi.topi.model.response.Meals;
+import com.luistaborda.topi.topi.model.vo.Meals;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class TheMealDBService {
-    static String URL = " https://www.themealdb.com/api/json/v1/1/search.php?s=";
-    static int STATUS_CODE_SUCCESS = 200;
 
     public static Meals findByName(String name) throws Exception {
-        String urlParaChamada = URL + name;
+        String urlParaChamada = Utils.URL + name;
 
         try {
             URL url = new URL(urlParaChamada);
             HttpURLConnection conexao = (HttpURLConnection) url.openConnection();
 
-            if (conexao.getResponseCode() != STATUS_CODE_SUCCESS)
+            if (conexao.getResponseCode() != Utils.HTTP_SUCESS_CODE)
                 throw new RuntimeException("HTTP error code : " + conexao.getResponseCode());
 
             BufferedReader resposta = new BufferedReader(new InputStreamReader((conexao.getInputStream())));
-            String jsonEmString = Util.converteJsonEmString(resposta);
+            String jsonEmString = Utils.converteJsonEmString(resposta);
 
             Gson gson = new Gson();
             Meals meals = gson.fromJson(jsonEmString, Meals.class);
@@ -37,12 +35,3 @@ public class TheMealDBService {
     }
 }
 
-class Util {
-    public static String converteJsonEmString(BufferedReader buffereReader) throws IOException {
-        String resposta, jsonEmString = "";
-        while ((resposta = buffereReader.readLine()) != null) {
-            jsonEmString += resposta;
-        }
-        return jsonEmString;
-    }
-}

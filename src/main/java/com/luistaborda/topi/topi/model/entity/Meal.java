@@ -35,7 +35,7 @@ public class Meal {
 
     @Column(name = "thumbnail")
     @SerializedName("strMealThumb")
-    private String thumbnail;
+        private String thumbnail;
 
     @Column(name = "instructions")
     @SerializedName("strInstructions")
