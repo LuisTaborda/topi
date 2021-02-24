@@ -13,17 +13,17 @@ import java.net.URL;
 public class TheMealDBService {
 
     public static Meals findByName(String name) throws Exception {
-        String urlParaChamada = Utils.URL + name;
+        String urlStr = Utils.URL + "api/json/v1/1/search.php?s=" + name;
 
         try {
-            URL url = new URL(urlParaChamada);
-            HttpURLConnection conexao = (HttpURLConnection) url.openConnection();
+            URL url = new URL(urlStr);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
-            if (conexao.getResponseCode() != Utils.HTTP_SUCESS_CODE)
-                throw new RuntimeException("HTTP error code : " + conexao.getResponseCode());
+            if (con.getResponseCode() != Utils.HTTP_SUCESS_CODE)
+                throw new RuntimeException("HTTP error code : " + con.getResponseCode());
 
-            BufferedReader resposta = new BufferedReader(new InputStreamReader((conexao.getInputStream())));
-            String jsonEmString = Utils.converteJsonEmString(resposta);
+            BufferedReader response = new BufferedReader(new InputStreamReader((con.getInputStream())));
+            String jsonEmString = Utils.converteJsonEmString(response);
 
             Gson gson = new Gson();
             Meals meals = gson.fromJson(jsonEmString, Meals.class);

@@ -30,7 +30,7 @@ public class MealResource {
     }
 
     @GetMapping
-    public ResponseEntity buscar(@RequestParam(value = "name", required = false) String name) throws Exception {
+    public ResponseEntity find(@RequestParam(value = "name", required = false) String name) throws Exception {
         try {
             Meals meals = TheMealDBService.findByName(name);
             if(meals.getMeals() == null) {

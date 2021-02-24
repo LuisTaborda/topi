@@ -4,13 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 public class Utils {
-    public static String URL = " https://www.themealdb.com/api/json/v1/1/search.php?s=";
+    public static String URL = " https://www.themealdb.com/";
     public static int HTTP_SUCESS_CODE = 200;
 
     public static String converteJsonEmString(BufferedReader buffereReader) throws IOException {
-        String resposta, jsonEmString = "";
-        while ((resposta = buffereReader.readLine()) != null) {
-            jsonEmString += resposta;
+        String response, jsonEmString = "";
+        while ((response = buffereReader.readLine()) != null) {
+            jsonEmString += response;
         }
         return jsonEmString;
     }
